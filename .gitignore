@@ -1,0 +1,26 @@
+# Maven build output
+target/
+
+# Eclipse / IntelliJ / VSCode
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Java
+*.class
+
+# Build tools
+dependency-reduced-pom.xml
+release.properties
