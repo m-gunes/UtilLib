@@ -21,7 +21,7 @@ public final class CollectionUtil {
         ArrayList<String> list = new ArrayList<>();
 
         for (int i = 0; i < count; ++i)
-            list.add(StringUtil.generateRandomTextTR(randomGenerator, randomGenerator.nextInt(min, bound)));
+            list.add(StringUtil.randomTextTR(randomGenerator, randomGenerator.nextInt(min, bound)));
 
         return list;
     }
