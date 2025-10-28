@@ -16,12 +16,12 @@ public final class MatrixUtil {
 
     public static int [][] add(int [][] a, int [][] b)
     {
-        int m = a.length;
-        int n = a[0].length;
-        int [][] r = new int[m][n];
+        var m = a.length;
+        var n = a[0].length;
+        var r = new int[m][n];
 
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
+        for (var i = 0; i < m; ++i)
+            for (var j = 0; j < n; ++j)
                 r[i][j] = a[i][j] + b[i][j];
 
         return r;
@@ -29,12 +29,12 @@ public final class MatrixUtil {
 
     public static double [][] add(double [][] a, double [][] b)
     {
-        int m = a.length;
-        int n = a[0].length;
-        double [][] r = new double[m][n];
+        var m = a.length;
+        var n = a[0].length;
+        var r = new double[m][n];
 
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
+        for (var i = 0; i < m; ++i)
+            for (var j = 0; j < n; ++j)
                 r[i][j] = a[i][j] + b[i][j];
 
         return r;
@@ -42,10 +42,10 @@ public final class MatrixUtil {
 
     public static int [][] generateRandomMatrix(RandomGenerator randomGenerator, int m, int n, int origin, int bound)
     {
-        int [][] result = new int[m][];
+        var result = new int[m][];
 
-        for (int i = 0; i < m; ++i)
-            result[i] = ArrayUtil.generateRandomArray(randomGenerator, n, origin, bound);
+        for (var i = 0; i < m; ++i)
+            result[i] = ArrayUtil.randomArray(randomGenerator, n, origin, bound);
 
         return result;
     }

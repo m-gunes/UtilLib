@@ -18,7 +18,8 @@ public final class CollectionUtil {
 
     public static ArrayList<String> randomStringListTR(RandomGenerator randomGenerator, int count, int min, int bound)
     {
-        ArrayList<String> list = new ArrayList<>();
+        // ArrayList<String> list = new ArrayList<>();
+        var list = new ArrayList<String>();
 
         for (int i = 0; i < count; ++i)
             list.add(StringUtil.randomTextTR(randomGenerator, randomGenerator.nextInt(min, bound)));
