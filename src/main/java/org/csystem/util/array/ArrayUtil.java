@@ -137,7 +137,7 @@ public final class ArrayUtil {
         return data;
     }
 
-    public static int max(int [] a)
+    public static int max(int...a)
     {
         return max(a, 0);
     }
@@ -162,7 +162,7 @@ public final class ArrayUtil {
         return result;
     }
 
-    public static int min(int [] a)
+    public static int min(int...a)
     {
         return min(a, 0);
     }
@@ -185,6 +185,19 @@ public final class ArrayUtil {
             result = Math.min(result, min(array));
 
         return result;
+    }
+
+    public static int [] merge(int [] a, int...b)
+    {
+        var merged = new int[a.length + b.length];
+
+        for (var i = 0; i < a.length; ++i)
+            merged[i] = a[i];
+
+        for (var i = 0; i < b.length; ++i)
+            merged[a.length + i] = b[i];
+
+        return merged;
     }
 
     public static void multiplyBy(int [] a, int value)
