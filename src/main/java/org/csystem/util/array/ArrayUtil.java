@@ -6,6 +6,7 @@
 package org.csystem.util.array;
 
 
+import java.math.BigDecimal;
 import java.util.random.RandomGenerator;
 
 public final class ArrayUtil {
@@ -323,6 +324,17 @@ public final class ArrayUtil {
         else
             selectionSortAscending(a);
     }
+
+    public static BigDecimal sum(BigDecimal [] a)
+    {
+        var total = BigDecimal.ZERO;
+
+        for (var val : a)
+            total = total.add(val);
+
+        return total;
+    }
+
     public static long sum(int [] a)
     {
         var total = 0;
