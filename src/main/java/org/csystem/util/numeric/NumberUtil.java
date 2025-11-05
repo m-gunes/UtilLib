@@ -5,6 +5,8 @@
  */
 package org.csystem.util.numeric;
 
+import java.math.BigInteger;
+
 public final class NumberUtil {
 	private NumberUtil()
 	{
@@ -100,11 +102,31 @@ public final class NumberUtil {
 	{
 		long result = 1;
 
-		for (long i = 2; i <= n; ++i)
+		for (int i = 2; i <= n; ++i)
 			result *= i;
 
 		return result;
 	}
+
+    public static BigInteger factorial(long n)
+    {
+        var result = BigInteger.ONE;
+
+        for (long i = 2; i <= n; ++i)
+            result = result.multiply(BigInteger.valueOf(i));
+
+        return result;
+    }
+
+    public static BigInteger factorial(BigInteger n)
+    {
+        var result = BigInteger.ONE;
+
+        for (var i = BigInteger.TWO; i.compareTo(n) <= 0; i = i.add(BigInteger.ONE))
+            result = result.multiply(i);
+
+        return result;
+    }
 
 	public static int fibonacciNumber(int n)
 	{
