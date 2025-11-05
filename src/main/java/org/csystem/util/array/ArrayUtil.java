@@ -7,6 +7,7 @@ package org.csystem.util.array;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.random.RandomGenerator;
 
 public final class ArrayUtil {
@@ -27,6 +28,22 @@ public final class ArrayUtil {
         for (var i = 0; i < a.length - 1; ++i)
             for (var k = 0; k < a.length -1 - i; ++k)
                 if (a[k] < a[k + 1])
+                    swap(a, k, k + 1);
+    }
+
+    private static void bubbleSortAscending(BigDecimal [] a)
+    {
+        for (var i = 0; i < a.length - 1; ++i)
+            for (var k = 0; k < a.length - 1 - i; ++k)
+                if (a[k + 1].compareTo(a[k]) < 0)
+                    swap(a, k, k + 1);
+    }
+
+    private static void bubbleSortDescending(BigDecimal [] a)
+    {
+        for (var i = 0; i < a.length - 1; ++i)
+            for (var k = 0; k < a.length -1 - i; ++k)
+                if (a[k].compareTo(a[k + 1]) < 0)
                     swap(a, k, k + 1);
     }
 
@@ -71,12 +88,45 @@ public final class ArrayUtil {
         return sum(a) / (double)a.length;
     }
 
+    public static double average(double [] a)
+    {
+        return sum(a) / (double)a.length;
+    }
+
+    public static double average(long [] a)
+    {
+        return sum(a) / (double)a.length;
+    }
+
+    public static BigDecimal average(BigDecimal [] a, RoundingMode roundingMode)
+    {
+        return sum(a).divide(BigDecimal.valueOf(a.length), roundingMode);
+    }
+
+    public static BigDecimal average(BigDecimal [] a, int scale, RoundingMode roundingMode)
+    {
+        return sum(a).divide(BigDecimal.valueOf(a.length), scale, roundingMode);
+    }
+
     public static void bubbleSort(int [] a)
     {
         bubbleSort(a, false);
     }
 
     public static void bubbleSort(int [] a, boolean descending)
+    {
+        if (descending)
+            bubbleSortDescending(a);
+        else
+            bubbleSortAscending(a);
+    }
+
+    public static void bubbleSort(BigDecimal [] a)
+    {
+        bubbleSort(a, false);
+    }
+
+    public static void bubbleSort(BigDecimal [] a, boolean descending)
     {
         if (descending)
             bubbleSortDescending(a);
@@ -345,9 +395,29 @@ public final class ArrayUtil {
         return total;
     }
 
+    public static long sum(long [] a)
+    {
+        var total = 0;
+
+        for (var val : a)
+            total += val;
+
+        return total;
+    }
+
+    public static long sum(double [] a)
+    {
+        var total = 0;
+
+        for (var val : a)
+            total += val;
+
+        return total;
+    }
+
     public static void swap(int [] a, int i, int k)
     {
-        int temp = a[i];
+        var temp = a[i];
 
         a[i] = a[k];
         a[k] = temp;
@@ -355,11 +425,18 @@ public final class ArrayUtil {
 
     public static void swap(char [] a, int i, int k)
     {
-        char temp = a[i];
+        var temp = a[i];
 
         a[i] = a[k];
         a[k] = temp;
     }
 
+    public static void swap(BigDecimal [] a, int i, int k)
+    {
+        var temp = a[i];
+
+        a[i] = a[k];
+        a[k] = temp;
+    }
     //...
 }
