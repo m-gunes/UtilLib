@@ -1,5 +1,6 @@
 package org.csystem.util.reflection;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -7,6 +8,16 @@ public class ReflectionUtil {
     private ReflectionUtil()
     {
         throw new UnsupportedOperationException("Utility class");
+    }
+
+    @FunctionalInterface
+    public interface IMethodCallback {
+       void doWith(Method method) throws Exception;
+    }
+
+    @FunctionalInterface
+    public interface IMethodFilter {
+        boolean matches(Method method) throws Exception;
     }
 
     private static String joinParams(Class<?>[] classes)
@@ -35,5 +46,31 @@ public class ReflectionUtil {
                 .append(')');
 
         return sb.toString();
+    }
+
+    public static String getFieldDeclarationAsString(Field field)
+    {
+//        doWithMethod(Random.class, m -> {}, m -> m.getName().equals("nextInt"));
+        var sb = new StringBuilder();
+        var modifiers = field.getModifiers();
+
+        sb.append(Modifier.toString(modifiers))
+                .append(' ')
+                .append(field.getType().getTypeName())
+                .append(' ')
+                .append(field.getName());
+
+        return sb.toString();
+    }
+
+    public static void doWithMethod(Class<?> cls, IMethodCallback methodCallback, IMethodFilter methodFilter)
+    {
+        try {
+            for (var method: cls.getMethods())
+                if (methodFilter.matches(method))
+                    methodCallback.doWith(method);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
