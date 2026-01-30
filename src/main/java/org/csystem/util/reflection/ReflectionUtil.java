@@ -20,6 +20,16 @@ public class ReflectionUtil {
         boolean matches(Method method) throws Exception;
     }
 
+    @FunctionalInterface
+    public interface IFieldCallback {
+        void doWith(Field field) throws Exception;
+    }
+
+    @FunctionalInterface
+    public interface IFieldFilter {
+        boolean matches(Field field) throws Exception;
+    }
+
     private static String joinParams(Class<?>[] classes)
     {
         var sb = new StringBuilder();
@@ -66,7 +76,7 @@ public class ReflectionUtil {
         return sb.toString();
     }
 
-    public static void doWithMethod(Class<?> cls, IMethodCallback methodCallback, IMethodFilter methodFilter)
+    public static void doWithMethods(Class<?> cls, IMethodCallback methodCallback, IMethodFilter methodFilter)
     {
         try {
             for (var method: cls.getMethods())
@@ -76,4 +86,80 @@ public class ReflectionUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public static void doWithMethods(Class<?> cls, IMethodCallback methodCallback)
+    {
+        try {
+            for (var method: cls.getMethods())
+                    methodCallback.doWith(method);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private static Method findDeclaredMethod(Class<?> cls, String name, Class<?>...paramTypes)
+    {
+        Method method = null;
+        try {
+            method = cls.getDeclaredMethod(name, paramTypes);
+        } catch (NoSuchMethodException ignore) {
+        }
+        return method;
+    }
+
+    private static Method findDeclaredMethod(Class<?> cls, String name)
+    {
+        Method method = null;
+        try {
+            method = cls.getDeclaredMethod(name);
+        } catch (NoSuchMethodException ignore) {
+        }
+        return method;
+    }
+
+    public static Method findMethod(Class<?> cls, String name)
+    {
+
+        Method method;
+        try {
+            method = cls.getMethod(name);
+        } catch (NoSuchMethodException ignore) {
+            method = findDeclaredMethod(cls, name);
+        }
+        return method;
+    }
+
+    public static Method findMethod(Class<?> cls, String name, Class<?>...paramTypes)
+    {
+        Method method;
+        try {
+            method = cls.getMethod(name, paramTypes);
+        } catch (NoSuchMethodException ignore) {
+            method = findDeclaredMethod(cls, name, paramTypes);
+        }
+        return method;
+    }
+
+    public static Field findDeclaredField(Class<?> cls, String name)
+    {
+        Field field = null;
+        try {
+            field = cls.getDeclaredField(name);
+        } catch (NoSuchFieldException ignore) {
+        }
+        return field;
+    }
+
+    public static Field findField(Class<?> cls, String name)
+    {
+        Field field;
+        try {
+            field = cls.getField(name);
+        } catch (NoSuchFieldException ignore) {
+            field = findDeclaredField(cls, name);
+        }
+        return field;
+    }
+
 }
