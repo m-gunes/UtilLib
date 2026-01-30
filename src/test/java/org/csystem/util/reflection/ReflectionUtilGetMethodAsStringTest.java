@@ -18,6 +18,7 @@ public class ReflectionUtilGetMethodAsStringTest {
                     "public abstract void run()",
                     "public void nextBytes(byte[])",
                     "public java.util.stream.IntStream ints(long)",
+                    "public java.lang.reflect.Field getField(java.lang.String) throws java.lang.NoSuchFieldException, java.lang.SecurityException"
             }
     )
     void test(String str) throws Exception
@@ -25,6 +26,7 @@ public class ReflectionUtilGetMethodAsStringTest {
         var clsRandom = Random.class;
         var clsMath = Math.class;
         var clsRunnable = Runnable.class;
+        var clsClass = Class.class;
 
         var methods = new Method[]{
             clsRandom.getMethod("nextInt", int.class, int.class),
@@ -32,6 +34,7 @@ public class ReflectionUtilGetMethodAsStringTest {
             clsRunnable.getMethod("run"),
             clsRandom.getMethod("nextBytes", byte[].class),
             clsRandom.getMethod("ints", long.class),
+            clsClass.getMethod("getField", String.class),
         };
 
         Assertions.assertEquals(str, ReflectionUtil.getMethodPrototypesAsString(methods[counter++]));

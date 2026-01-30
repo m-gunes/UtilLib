@@ -35,6 +35,8 @@ public class ReflectionUtil {
         var modifiers = method.getModifiers();
         var clsParameters = method.getParameterTypes();
         var params = clsParameters.length != 0 ? joinParams(clsParameters) : "";
+        var clsExceptions = method.getExceptionTypes();
+        var strExceptions = clsExceptions.length != 0 ? " throws " + joinParams(clsExceptions) : "";
 
         sb.append(Modifier.toString(modifiers))
                 .append(' ')
@@ -43,7 +45,8 @@ public class ReflectionUtil {
                 .append(method.getName())
                 .append('(')
                 .append(params)
-                .append(')');
+                .append(')')
+                .append(strExceptions);
 
         return sb.toString();
     }
