@@ -97,6 +97,48 @@ public class ReflectionUtil {
         }
     }
 
+    public static void doWithDeclaredMethods(Class<?> cls, IMethodCallback methodCallback, IMethodFilter methodFilter)
+    {
+        try {
+            for (var method: cls.getDeclaredMethods())
+                if (methodFilter.matches(method))
+                    methodCallback.doWith(method);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void doWithDeclaredMethods(Class<?> cls, IMethodCallback methodCallback)
+    {
+        try {
+            for (var method: cls.getDeclaredMethods())
+                methodCallback.doWith(method);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void doWithFields(Class<?> cls, IFieldCallback fieldCallback, IFieldFilter fieldFilter)
+    {
+        try {
+            for (var field : cls.getFields())
+                if (fieldFilter.matches(field))
+                    fieldCallback.doWith(field);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void doWithFields(Class<?> cls, IFieldCallback fieldCallback)
+    {
+        try {
+            for (var field : cls.getFields())
+                fieldCallback.doWith(field);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private static Method findDeclaredMethod(Class<?> cls, String name, Class<?>...paramTypes)
     {
