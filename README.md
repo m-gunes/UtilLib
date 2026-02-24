@@ -1,0 +1,1 @@
+Bu repository'deki kodlar [__C ve Sistem Programcıları Derneği__](http://www.csystem.org/) tarafından düzenlenen Java Kursu içerisinde kurs eğitmeni [Oğuz Karan](https://github.com/oguzkaran) tarafından yapılan çalışmalardan, kendime aldığım notlardan, ödevlerlerimden ve kendimce yaptığım eklentilerden oluşmaktadır.
