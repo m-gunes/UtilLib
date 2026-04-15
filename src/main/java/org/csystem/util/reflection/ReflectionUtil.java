@@ -1,13 +1,35 @@
 package org.csystem.util.reflection;
 
+import javax.management.openmbean.CompositeData;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
 
 public class ReflectionUtil {
+
+    private static final FilenameFilter ms_filenameFilter = (dir, name) -> name.endsWith(".jar");
+
     private ReflectionUtil()
     {
         throw new UnsupportedOperationException("Utility class");
+    }
+
+    private static String getClassName(JarEntry jarEntry)
+    {
+        String className = jarEntry.getName().replace("/", ".");   // com/example/MyClass.class
+        className = className.substring(0, className.lastIndexOf("."));
+        return className;
     }
 
     @FunctionalInterface
@@ -202,6 +224,76 @@ public class ReflectionUtil {
             field = findDeclaredField(cls, name);
         }
         return field;
+    }
+
+    public static List<Class<?>> getImplementedClassesByJar(String filePath, String tStr)
+            throws IOException, ClassNotFoundException
+    {
+        URL[] urls = { new File(filePath).toURI().toURL() };
+
+        try (JarFile jarFile = new JarFile(filePath);
+             URLClassLoader cl = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader())) {
+
+            Enumeration<JarEntry> entries = jarFile.entries();
+            List<Class<?>> list = new ArrayList<>();
+            var tCls = Class.forName(tStr);
+
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = entries.nextElement();
+
+                if (jarEntry.isDirectory() || !jarEntry.getName().endsWith(".class"))
+                    continue;
+
+                Class<?> cls = cl.loadClass(getClassName(jarEntry));
+
+                if (cls.isInterface() || cls == tCls)
+                    continue;
+
+                if (tCls.isAssignableFrom(cls))
+                    list.add(cls);
+            }
+
+            return list;
+        }
+    }
+
+    public static List<Class<?>> getImplementedClassesByJars(String dirPath, Class<?> tCls)
+            throws IOException, ClassNotFoundException
+    {
+        File[] jarFiles = new File(dirPath).listFiles(ms_filenameFilter);
+        List<Class<?>> list = new ArrayList<>();
+
+        if (jarFiles == null)
+            return list;
+
+        for (File jarFile : jarFiles) {
+            List<Class<?>> classList =
+                    getImplementedClassesByJar(jarFile.getAbsolutePath(), String.valueOf(tCls));
+
+            if (!classList.isEmpty())
+                list.addAll(classList);
+        }
+
+        return list;
+    }
+
+
+    public static List<Class<?>> getImplementedClassesByJars(String dirPath, String tStr) throws IOException, ClassNotFoundException
+    {
+        File[] jarFiles = new File(dirPath).listFiles(ms_filenameFilter);
+        List<Class<?>> list = new ArrayList<>();
+
+        if (jarFiles == null)
+            return list;
+
+        for (File jarFile: jarFiles) {
+            List<Class<?>> classList = getImplementedClassesByJar(jarFile.getAbsolutePath(), tStr);
+
+            if (!classList.isEmpty())
+                list.addAll(classList);
+        }
+
+        return list;
     }
 
 }
