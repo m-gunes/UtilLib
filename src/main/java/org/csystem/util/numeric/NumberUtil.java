@@ -6,8 +6,16 @@
 package org.csystem.util.numeric;
 
 import java.math.BigInteger;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 public final class NumberUtil {
+    private static final int RADIX_DECIMAL = 10;
+    private static final int RADIX_HEXADECIMAL = 16;
+    private static final int RADIX_BINARY = 2;
+
+
 	private NumberUtil()
 	{
 	}
@@ -374,4 +382,73 @@ public final class NumberUtil {
 
 		return Math.abs(total);
 	}
+
+    public static OptionalInt toInt(String str)
+    {
+        return toInt(str, RADIX_DECIMAL);
+    }
+
+    public static OptionalInt toIntHex(String str)
+    {
+        return toInt(str, RADIX_HEXADECIMAL);
+    }
+
+    public static OptionalInt toIntBin(String str)
+    {
+        return toInt(str, RADIX_BINARY);
+    }
+
+    public static OptionalInt toInt(String str, int radix)
+    {
+        OptionalInt result;
+
+        try {
+            result = OptionalInt.of(Integer.parseInt(str, radix));
+        } catch (NumberFormatException ignore) {
+            result = OptionalInt.empty();
+        }
+
+        return result;
+    }
+
+    public static OptionalLong toLong(String str)
+    {
+        return toLong(str, RADIX_DECIMAL);
+    }
+
+    public static OptionalLong toLongHex(String str)
+    {
+        return toLong(str, RADIX_HEXADECIMAL);
+    }
+
+    public static OptionalLong toLongBin(String str)
+    {
+        return toLong(str, RADIX_BINARY);
+    }
+
+    public static OptionalLong toLong(String str, int radix)
+    {
+        OptionalLong result;
+
+        try {
+            result = OptionalLong.of(Long.parseLong(str, radix));
+        } catch (NumberFormatException ignore) {
+            result = OptionalLong.empty();
+        }
+
+        return result;
+    }
+
+    public static OptionalDouble toDouble(String str)
+    {
+        OptionalDouble result;
+
+        try {
+            result = OptionalDouble.of(Double.parseDouble(str));
+        } catch (NumberFormatException ignore) {
+            result = OptionalDouble.empty();
+        }
+
+        return result;
+    }
 }
