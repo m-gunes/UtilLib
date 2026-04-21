@@ -6,6 +6,7 @@
 package org.csystem.util.numeric;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
@@ -450,5 +451,10 @@ public final class NumberUtil {
         }
 
         return result;
+    }
+    public static void copy(List<? extends Number> src, List<? super Number> dest) // src den okuma(get), dest'ten yazma(add) yapilacagini soyluyor
+    {
+        for (var n : src)
+            dest.add(n);
     }
 }
