@@ -34,22 +34,6 @@ public final class ArrayUtil {
                     swap(a, k, k + 1);
     }
 
-    private static void bubbleSortAscending(BigDecimal [] a)
-    {
-        for (var i = 0; i < a.length - 1; ++i)
-            for (var k = 0; k < a.length - 1 - i; ++k)
-                if (a[k + 1].compareTo(a[k]) < 0)
-                    swap(a, k, k + 1);
-    }
-
-    private static void bubbleSortDescending(BigDecimal [] a)
-    {
-        for (var i = 0; i < a.length - 1; ++i)
-            for (var k = 0; k < a.length -1 - i; ++k)
-                if (a[k].compareTo(a[k + 1]) < 0)
-                    swap(a, k, k + 1);
-    }
-
     private static void selectionSortAscending(int [] a)
     {
         int min, minIndex;
@@ -124,17 +108,22 @@ public final class ArrayUtil {
             bubbleSortAscending(a);
     }
 
-    public static void bubbleSort(BigDecimal [] a)
+    public static <T extends Comparable<? super T>> void bubbleSort(T[] a)
     {
-        bubbleSort(a, false);
+        for (var i = 0; i < a.length - 1; ++i)
+            for (var k = 0; k < a.length - 1 - i; ++k)
+                if (a[k + 1].compareTo(a[k]) < 0)
+                    swap(a, k, k + 1);
     }
 
-    public static void bubbleSort(BigDecimal [] a, boolean descending)
+    public static <T> void bubbleSort(T[] a, Comparator<? super T> comparator)
     {
-        if (descending)
-            bubbleSortDescending(a);
-        else
-            bubbleSortAscending(a);
+        for (var i = 0; i < a.length - 1; ++i)
+            for (var k = 0; k < a.length - 1 - i; ++k)
+//                if (comparator.compare(a[k+1], a[k]) < 0)
+                if (Objects.compare(a[k+1], a[k], comparator) < 0)
+                    swap(a, k, k + 1);
+
     }
 
     public static void drawHistogram(int [] data, int n, char ch)
@@ -442,12 +431,11 @@ public final class ArrayUtil {
         a[k] = temp;
     }
 
-    public static void swap(BigDecimal [] a, int i, int k)
+    public static <T>void swap(T[] a, int i, int k)
     {
-        var temp = a[i];
-
-        a[i] = a[k];
-        a[k] = temp;
+       var temp = a[i];
+       a[i] = a[k];
+       a[k] = temp;
     }
     //...
 }
