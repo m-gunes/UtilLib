@@ -6,6 +6,8 @@
 package org.csystem.util.string;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 import java.util.random.RandomGenerator;
 
 public final class StringUtil {
@@ -60,6 +62,8 @@ public final class StringUtil {
 
 	public static String randomText(RandomGenerator randomGenerator, int count, CharSequence charSequence)
 	{
+        randomGenerator = Objects.requireNonNullElseGet(randomGenerator, Random::new);// requireNonNullElse ile burada adeta default arguman yapiliyor.
+
 		char [] c = new char[count];
 
 		for (int i = 0; i < count; ++i)
@@ -80,7 +84,9 @@ public final class StringUtil {
 
 	public static String [] randomTexts(RandomGenerator randomGenerator, int count, int origin, int bound, CharSequence charSequence)
 	{
-		String [] str = new String[count];
+        randomGenerator = Objects.requireNonNullElseGet(randomGenerator, Random::new);// requireNonNullElse ile burada adeta default arguman yapiliyor.
+
+        String [] str = new String[count];
 
 		for (int i = 0; i < count; ++i)
 			str[i] = randomText(randomGenerator, randomGenerator.nextInt(origin, bound), charSequence);
