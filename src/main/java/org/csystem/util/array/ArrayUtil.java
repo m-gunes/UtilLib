@@ -8,6 +8,9 @@ package org.csystem.util.array;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.Random;
 import java.util.random.RandomGenerator;
 
 public final class ArrayUtil {
@@ -136,6 +139,8 @@ public final class ArrayUtil {
 
     public static void drawHistogram(int [] data, int n, char ch)
     {
+        Objects.requireNonNull(data, "data can not be null"); // tam bu noktada, max metoduna girmeden bizim yazdigimiz mesaj ile NullPointerException veriyor.
+
         int maxValue = ArrayUtil.max(data);
 
         for (int grade : data) {
@@ -150,6 +155,8 @@ public final class ArrayUtil {
 
     public static int [] randomArray(RandomGenerator randomGenerator, int count, int origin, int bound)
     {
+        randomGenerator = Objects.requireNonNullElse(randomGenerator, new Random());// requireNonNullElse ile burada adeta default arguman yapiliyor.
+
         var a = new int[count];
 
         for (var i = 0; i < count; ++i)
@@ -160,6 +167,8 @@ public final class ArrayUtil {
 
     public static double [] randomArray(RandomGenerator randomGenerator, int count, double origin, double bound)
     {
+        randomGenerator = Objects.requireNonNullElse(randomGenerator, new Random());// requireNonNullElse ile burada adeta default arguman yapiliyor.
+
         var a = new double[count];
 
         for (var i = 0; i < count; ++i)
@@ -170,6 +179,8 @@ public final class ArrayUtil {
 
     public static boolean [] randomArray(RandomGenerator randomGenerator, int count)
     {
+        randomGenerator = Objects.requireNonNullElse(randomGenerator, new Random());// requireNonNullElse ile burada adeta default arguman yapiliyor.
+
         var a = new boolean[count];
 
         for (var i = 0; i < count; ++i)
