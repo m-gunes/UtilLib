@@ -1,10 +1,12 @@
 package org.csystem.util.collection;
 
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
-public class CSDArrayList<E> {
+public class CSDArrayList<E> implements List<E> {
+    private static final String TO_STRING_SEPARATOR = ", ";
+    private static final String TO_STRING_PREFIX = "[";
+    private static final String TO_STRING_SUFFIX = "]";
     private static final int DEFAULT_CAPACITY = 10;
     private E [] m_elements;
     private int m_index;
@@ -42,17 +44,25 @@ public class CSDArrayList<E> {
             changeCapacity(m_elements.length == 0 ? 1 : m_elements.length * 2);
     }
 
+    @SuppressWarnings("unchecked")
     public CSDArrayList()
     {
         m_elements = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
+    @SuppressWarnings("unchecked")
     public CSDArrayList(int initialCapacity)
     {
         checkCapacity(initialCapacity);
         m_elements = (E[]) new Object[initialCapacity];
     }
 
+    public CSDArrayList(Collection<? extends E> c)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
     public boolean add(E element)
     {
         increaseCapacityIfNecessary();
@@ -60,6 +70,43 @@ public class CSDArrayList<E> {
         return true;
     }
 
+    @Override
+    public boolean remove(Object o)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
     public void add(int index, E element)
     {
         increaseCapacityIfNecessary();
@@ -75,6 +122,7 @@ public class CSDArrayList<E> {
         return m_elements.length;
     }
 
+    @Override
     public void clear()
     {
         for (int i = 0; i < m_index; ++i)
@@ -89,12 +137,14 @@ public class CSDArrayList<E> {
             changeCapacity(Math.max(minCapacity, m_elements.length * 2));
     }
 
+    @Override
     public E get(int index)
     {
         checkIndex(index);
         return m_elements[index];
     }
 
+    @Override
     public E remove(int index)
     {
         checkIndex(index);
@@ -108,6 +158,37 @@ public class CSDArrayList<E> {
         return oldElement;
     }
 
+    @Override
+    public int indexOf(Object o)
+    {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(Object o)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public ListIterator<E> listIterator()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
     public E set(int index, E element)
     {
         checkIndex(index);
@@ -116,9 +197,40 @@ public class CSDArrayList<E> {
         return oldElement;
     }
 
+    @Override
     public int size()
     {
         return m_index;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public boolean contains(Object o)
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public Iterator<E> iterator()
+    {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public Object[] toArray()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public void trimToSize()
@@ -148,10 +260,13 @@ public class CSDArrayList<E> {
 
     public String toString()
     {
-        StringBuilder sb = new StringBuilder("[");
+        StringBuilder sb = new StringBuilder(TO_STRING_PREFIX);
         for (int i = 0; i < m_index; ++i)
-            sb.append(m_elements[i]).append(", ");
+            sb.append(m_elements[i]).append(TO_STRING_SEPARATOR);
 
-        return (m_index != 0 ? sb.substring(0, sb.length() -2) : sb.toString()) + "]";
+        return (m_index != 0 ? sb.substring(0, sb.length() - TO_STRING_SEPARATOR.length()) : sb.toString()) + TO_STRING_SUFFIX;
     }
+
+
+
 }
