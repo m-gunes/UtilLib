@@ -233,7 +233,25 @@ public class CSDArrayList<E> implements List<E> {
     @Override
     public Iterator<E> iterator()
     {
-        throw new UnsupportedOperationException("TODO");
+        return new Iterator<E>() {
+            int idx;
+
+            @Override
+            public boolean hasNext()
+            {
+                return idx < m_index;
+            }
+
+            @Override
+            public E next()
+            {
+                if (!hasNext())
+                    throw new NoSuchElementException("No more item!");
+                else {
+                    return m_elements[idx++];
+                }
+            }
+        };
     }
 
     @Override
