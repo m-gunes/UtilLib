@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class CSDArrayListIteratorTest {
 
     @Test
-    void givenValues_hasNextAndNext_thenCorrectNumberOfElement()
+    void givenValues_whenIterateWithHasNextAndNext_thenEqual()
     {
         var list = new CSDArrayList<String>();
         list.add("ankara");
