@@ -6,6 +6,7 @@
 package org.csystem.util.string;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Random;
 import java.util.random.RandomGenerator;
@@ -30,6 +31,19 @@ public final class StringUtil {
 		ALL_LETTERS_EN = LETTERS_EN + CAPITAL_LETTERS_EN;
 		ALL_LETTERS_TR = LETTERS_TR + CAPITAL_LETTERS_TR;
 	}
+
+    /**
+     * Sınıf Çalışması: Parametresi ile aldığı bir yazının tüm karakterlerinin farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki StringUtil sınıfına ekleyiniz.
+     */
+    public static boolean areAllUnique(String s)
+    {
+        var hashset = new HashSet<Character>();
+        for (int i = 0; i < s.length(); ++i)
+            if (!hashset.add(s.charAt(i))) // ayni karakterden bir tane daha varsa add method'u false olur
+                return false;
+
+        return true;
+    }
 
 	public static String capitalize(String s)
 	{
