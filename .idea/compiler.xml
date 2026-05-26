@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="GenericLib" />
+        <module name="org-csystem-util" />
         <module name="Library-Maven" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Library-Maven" options="-parameters" />
+      <module name="org-csystem-util" options="-parameters" />
     </option>
   </component>
 </project>
