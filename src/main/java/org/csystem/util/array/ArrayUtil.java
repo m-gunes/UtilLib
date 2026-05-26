@@ -8,14 +8,26 @@ package org.csystem.util.array;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.random.RandomGenerator;
 
 public final class ArrayUtil {
     private ArrayUtil()
     {
+    }
+
+    /**
+     * Sınıf Çalışması: Parametresi ile aldığı generic türden bir dizinin tüm elemanlarının farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki ArrayUtil sınıfı içerisinde yazınız. Metodun temel türden diziler için overload'larını da ekleyiniz.
+     */
+    public static <T> boolean areAllUnique(T [] e)
+    {
+        var hashSet = new HashSet<T>();
+
+        for (T item : e)
+            if (!hashSet.add(item))
+                return false;
+
+        return true;
     }
 
     private static void bubbleSortAscending(int [] a)
