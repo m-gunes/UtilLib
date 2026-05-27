@@ -37,6 +37,6 @@ public class ReflectionUtilGetMethodAsStringTest {
             clsClass.getMethod("getField", String.class),
         };
 
-        Assertions.assertEquals(str, ReflectionUtil.getMethodPrototypesAsString(methods[counter++]));
+        Assertions.assertEquals(str, ReflectionUtil.getMethodPrototypeAsString(methods[counter++]));
     }
 }
