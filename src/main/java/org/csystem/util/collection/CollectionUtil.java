@@ -22,9 +22,9 @@ public final class CollectionUtil {
      * Sınıf Çalışması: Parametresi ile aldığı generic türden bir Collection'ın tüm elemanlarının farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki ArrayUtil sınıfı içerisinde yazınız.
      */
 
-    public static <T> boolean areAllUnique(Collection<T> e)
+    public static <T> boolean areAllUnique(Collection<? extends T> e)
     {
-        var hashSet = new HashSet<T>();
+        HashSet<? super T> hashSet = new HashSet<T>();
 
         for (T item : e)
             if (!hashSet.add(item))

@@ -19,6 +19,7 @@ public final class ArrayUtil {
     /**
      * Sınıf Çalışması: Parametresi ile aldığı generic türden bir dizinin tüm elemanlarının farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki ArrayUtil sınıfı içerisinde yazınız. Metodun temel türden diziler için overload'larını da ekleyiniz.
      */
+    //public static <T> boolean areAllUnique(List<? extends T> e)
     public static <T> boolean areAllUnique(T [] e)
     {
         var hashSet = new HashSet<T>();
