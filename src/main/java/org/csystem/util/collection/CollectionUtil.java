@@ -7,12 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.random.RandomGenerator;
 
-/**
- * Utility class for collection operations
- * Last Update: 15th May 2025
- * @author Java-Sep-2024 Group
- */
-
 public final class CollectionUtil {
     private CollectionUtil()
     {
@@ -22,15 +16,9 @@ public final class CollectionUtil {
      * Sınıf Çalışması: Parametresi ile aldığı generic türden bir Collection'ın tüm elemanlarının farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki ArrayUtil sınıfı içerisinde yazınız.
      */
 
-    public static <T> boolean areAllUnique(Collection<? extends T> e)
+    public static <E> boolean areAllDistinct(Collection<? extends E> collection)
     {
-        HashSet<? super T> hashSet = new HashSet<T>();
-
-        for (T item : e)
-            if (!hashSet.add(item))
-                return false;
-
-        return true;
+        return new HashSet<E>(collection).size() == collection.size();
     }
 
     public static ArrayList<String> randomStringListTR(RandomGenerator randomGenerator, int count, int min, int bound)

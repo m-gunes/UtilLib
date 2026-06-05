@@ -35,7 +35,7 @@ public final class StringUtil {
     /**
      * Sınıf Çalışması: Parametresi ile aldığı bir yazının tüm karakterlerinin farklı olup olmadığını test eden areAllUnique isimli metodu UtilLib içerisindeki StringUtil sınıfına ekleyiniz.
      */
-    public static boolean areAllUnique(String s)
+    public static boolean areAllDistinct(String s)
     {
         var hashset = new HashSet<Character>();
         for (int i = 0; i < s.length(); ++i)

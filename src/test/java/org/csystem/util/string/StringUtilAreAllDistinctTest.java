@@ -3,13 +3,13 @@ package org.csystem.util.string;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class StringUtilAreAllUniqueTest {
+public class StringUtilAreAllDistinctTest {
 
     @Test
     void givenValue_whenString_thenReturnTrue()
     {
         String str = "ali";
-        Assertions.assertTrue(StringUtil.areAllUnique(str));
+        Assertions.assertTrue(StringUtil.areAllDistinct(str));
     }
 
     @Test
@@ -17,6 +17,6 @@ public class StringUtilAreAllUniqueTest {
     {
 
         String str = "halil";
-        Assertions.assertFalse(StringUtil.areAllUnique(str));
+        Assertions.assertFalse(StringUtil.areAllDistinct(str));
     }
 }
