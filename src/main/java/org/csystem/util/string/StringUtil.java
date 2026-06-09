@@ -5,10 +5,7 @@
  */
 package org.csystem.util.string;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.random.RandomGenerator;
 
 public final class StringUtil {
@@ -44,6 +41,49 @@ public final class StringUtil {
 
         return true;
     }
+
+	/**
+	 * Sınıf Çalışması: Parametresi ile aldığı iki tane yazının anagram olup olmadığını test eden areAnagram isimli metodu StringUtil sınıfı içerisinde yazınız. Anagram: Bir yazının harflerinin yerleri değiştirilerek diğer yazı elde edilebiliyorsa bu iki yazıya anagram denir.
+	 *
+	 * <p>
+	 * Örneğin:
+	 *
+	 * <pre>
+	 * "para" ve "arap"
+	 * "brat" ve "bart"
+	 * </pre>
+	 */
+	public static boolean areAnagram(String s1, String s2)
+	{
+		// her bir karakteri sayacagiz.
+		// Yontem 1: karakter ve karsilik gelen degerin esitligine bakacagiz.
+		// Yontem 2: birinci karakter ile HashMap'i doldur. ikinci karakter ile bosalt.
+		// yani birinci karakter ile her bir karaterin degrini artirirsiniz, ikinci karakter ile azaltirsiniz. Gunun sonunda hepsi sifirsa anagramsiniz.
+
+		if (s1.length() != s2.length())
+			return false;
+
+		var map = new HashMap<Character, Integer>();
+
+		for (int i = 0; i < s1.length(); ++i) {
+			var c = s1.charAt(i);
+			map.put(c, map.getOrDefault(c, 0) + 1);
+		}
+
+		for (int i = 0; i < s2.length(); ++i) {
+			var c = s2.charAt(i);
+			if (!map.containsKey(c))
+				return false; // early return
+
+			map.put(c, map.get(c) - 1);
+		}
+
+		for(var c : map.keySet())
+			if (map.get(c) != 0)
+				return false;
+
+		return true;
+	}
 
 	public static String capitalize(String s)
 	{
